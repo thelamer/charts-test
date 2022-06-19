@@ -1,250 +1,265 @@
+groups:
+  - name: "Configuration"
+    description: "Home Assistant application configuration"
+  - name: "Storage"
+    description: "Configure storage for homeassistant"
+  - name: "Networking"
+    description: "Networking Configuration for homeassistant"
+  - name: "Advanced DNS Settings"
+    description: "Configure DNS settings"
+
+portals:
+  web_portal:
+    protocols:
+      - "http"
+    host:
+      - "$node_ip"
+    ports:
+      - "$variable-web_port"
+    path: "/"
+
 questions:
-  - variable: service
-    group: "Networking and Services"
-    label: "Configure Service(s)"
+  - variable: web_port
+    label: "Web Port for homeassistant"
+    group: Networking
     schema:
-      additional_attrs: true
+      type: int
+      min: 8000
+      max: 65535
+      default: 20810
+      required: true
+
+  - variable: timezone
+    label: "Configure timezone"
+    group: "Configuration"
+    description: "Configure timezone for Home Assistant"
+    schema:
+      type: string
+      $ref:
+        - "definitions/timezone"
+
+  - variable: hostNetwork
+    label: "Enable Host Network"
+    group: "Networking"
+    schema:
+      type: boolean
+      default: false
+
+  - variable: dnsConfig
+    label: "DNS Configuration"
+    group: "Advanced DNS Settings"
+    schema:
       type: dict
       attrs:
-        - variable: main
-          label: "Main Service"
-          description: "The Primary service on which the healthcheck runs, often the webUI"
+        - variable: options
+          label: "DNS Options"
           schema:
-            additional_attrs: true
+            type: list
+            items:
+              - variable: optionsEntry
+                label: "Option Entry Configuration"
+                schema:
+                  type: dict
+                  attrs:
+                    - variable: name
+                      label: "Option Name"
+                      schema:
+                        type: string
+                        required: true
+                    - variable: value
+                      label: "Option Value"
+                      schema:
+                        type: string
+                        required: true
+
+  - variable: ownerUID
+    label: "Storage User ID"
+    description: "User ID of the storage volume being used (application will chown the storage volume path with specified UID)"
+    group: Configuration
+    schema:
+      type: int
+      default: 568
+      min: 1
+      max: 65535
+
+  - variable: ownerGID
+    label: "Storage Group ID"
+    description: "Group ID of the storage volume being used (application will chown the storage volume path with specified GID)"
+    group: Configuration
+    schema:
+      type: int
+      default: 568
+      min: 1
+      max: 65535
+
+  - variable: environmentVariables
+    label: "Home Assistant environment"
+    group: "Configuration"
+    schema:
+      type: list
+      default: []
+      items:
+        - variable: environmentVariable
+          label: "Environment Variable"
+          schema:
             type: dict
             attrs:
-                    - variable: main
-                      label: "Main Service Port Configuration"
-                      schema:
-                        additional_attrs: true
-                        type: dict
-                        attrs:
-                          - variable: port
-                            label: "Port"
-                            description: "This port exposes the container port on the service"
-                            schema:
-                              type: int
-                              default: 10131
-                              required: true
-                          - variable: advanced
-                            label: "Show Advanced settings"
-                            schema:
-                              type: boolean
-                              default: false
-                              show_subquestions_if: true
-                              subquestions:
-                                - variable: enabled
-                                  label: "Enable the port"
-                                  schema:
-                                    type: boolean
-                                    default: true
-                                - variable: protocol
-                                  label: "Port Type"
-                                  schema:
-                                    type: string
-                                    default: "HTTP"
-                                    enum:
-                                      - value: HTTP
-                                        description: "HTTP"
-                                      - value: "HTTPS"
-                                        description: "HTTPS"
-                                      - value: TCP
-                                        description: "TCP"
-                                      - value: "UDP"
-                                        description: "UDP"
-                                - variable: nodePort
-                                  label: "Node Port (Optional)"
-                                  description: "This port gets exposed to the node. Only considered when service type is NodePort, Simple or LoadBalancer"
-                                  schema:
-                                    type: int
-                                    min: 9000
-                                    max: 65535
-                                - variable: targetPort
-                                  label: "Target Port"
-                                  description: "The internal(!) port on the container the Application runs on"
-                                  schema:
-                                    type: int
-                                    default: 3000
+              - variable: name
+                label: "Name"
+                schema:
+                  type: string
+              - variable: value
+                label: "Value"
+                schema:
+                  type: string
 
-
-  - variable: persistence
-    label: "Integrated Persistent Storage"
-    description: "Integrated Persistent Storage"
-    group: "Storage and Persistence"
+  - variable: appVolumeMounts
+    label: "Home Assistant Storage"
+    group: "Storage"
     schema:
       type: dict
       attrs:
         - variable: config
-          label: "App Config Storage"
-          description: "Stores the Application Configuration."
+          label: "Storage Volume for Configuration"
           schema:
             type: dict
             attrs:
-              - variable: enabled
-                label: "Enable the storage"
-                schema:
-                  type: boolean
-                  default: true
-                  hidden: true
-              - variable: type
-                label: "Type of Storage"
-                description: "Sets the persistence type, Anything other than PVC could break rollback!"
+              - variable: datasetName
+                label: "Configuration Storage Volume Dataset Name"
                 schema:
                   type: string
-                  default: "simpleHP"
-                  enum:
-                    - value: "simplePVC"
-                      description: "PVC (simple)"
-                    - value: "simpleHP"
-                      description: "HostPath (simple)"
-                    - value: "emptyDir"
-                      description: "emptyDir"
-                    - value: "pvc"
-                      description: "pvc"
-                    - value: "hostPath"
-                      description: "hostPath"
-              - variable: setPermissionsSimple
-                label: "Automatic Permissions"
-                description: "Automatically set permissions on install"
-                schema:
-                  show_if: [["type", "=", "simpleHP"]]
-                  type: boolean
-                  default: true
-              - variable: setPermissions
-                label: "Automatic Permissions"
-                description: "Automatically set permissions on install"
-                schema:
-                  show_if: [["type", "=", "hostPath"]]
-                  type: boolean
-                  default: true
-              - variable: readOnly
-                label: "readOnly"
-                schema:
-                  type: boolean
-                  default: false
-              - variable: hostPathSimple
-                label: "hostPath"
-                description: "Path inside the container the storage is mounted"
-                schema:
-                  show_if: [["type", "=", "simpleHP"]]
-                  type: hostpath
-              - variable: hostPath
-                label: "hostPath"
-                description: "Path inside the container the storage is mounted"
-                schema:
-                  show_if: [["type", "=", "hostPath"]]
-                  type: hostpath
+                  hidden: true
+                  $ref:
+                    - "normalize/ixVolume"
+                  show_if: [["hostPathEnabled", "=", false]]
+                  default: "ix-config"
+                  editable: false
               - variable: mountPath
-                label: "mountPath"
-                description: "Path inside the container the storage is mounted"
+                label: "Configuration Storage Mount Path"
+                description: "Path where the volume will be mounted inside the pod"
                 schema:
-                  type: string
-                  default: "/opt"
+                  type: path
                   hidden: true
-                  valid_chars: '^\/([a-zA-Z0-9._-]+\/?)+$'
-              - variable: medium
-                label: "EmptyDir Medium"
-                schema:
-                  show_if: [["type", "=", "emptyDir"]]
-                  type: string
-                  default: ""
-                  enum:
-                    - value: ""
-                      description: "Default"
-                    - value: "Memory"
-                      description: "Memory"
-              - variable: size
-                label: "Size quotum of storage"
-                schema:
-                  show_if: [["type", "=", "pvc"]]
-                  type: string
-                  default: "999Gi"
-              - variable: hostPathType
-                label: "(Advanced) hostPath Type"
-                schema:
-                  show_if: [["type", "=", "hostPath"]]
-                  type: string
-                  default: ""
-                  enum:
-                    - value: ""
-                      description: "Default"
-                    - value: "DirectoryOrCreate"
-                      description: "DirectoryOrCreate"
-                    - value: "Directory"
-                      description: "Directory"
-                    - value: "FileOrCreate"
-                      description: "FileOrCreate"
-                    - value: "File"
-                      description: "File"
-                    - value: "Socket"
-                      description: "Socket"
-                    - value: "CharDevice"
-                      description: "CharDevice"
-                    - value: "BlockDevice"
-                      description: "BlockDevice"
-              - variable: storageClass
-                label: "(Advanced) storageClass"
-                description: "Warning: Anything other than SCALE-ZFS or empty will break rollback!"
-                schema:
-                  show_if: [["type", "=", "pvc"]]
-                  type: string
-                  default: "SCALE-ZFS"
-              - variable: accessMode
-                label: "(Advanced) Access Mode"
-                description: "Allow or disallow multiple PVC's writhing to the same PV"
-                schema:
-                  show_if: [["type", "=", "pvc"]]
-                  type: string
-                  default: "ReadWriteOnce"
-                  enum:
-                    - value: "ReadWriteOnce"
-                      description: "ReadWriteOnce"
-                    - value: "ReadOnlyMany"
-                      description: "ReadOnlyMany"
-                    - value: "ReadWriteMany"
-                      description: "ReadWriteMany"
-              - variable: advanced
-                label: "Show Advanced Options"
+                  editable: true
+                  default: "/config"
+              - variable: hostPathEnabled
+                label: "Enable Custom Host Path for Home Assistant Configuration Storage Volume"
                 schema:
                   type: boolean
                   default: false
                   show_subquestions_if: true
                   subquestions:
-                    - variable: labelsList
-                      label: "Labels"
+                    - variable: hostPath
+                      label: "Host Path for Home Assistant Configuration Storage Volume"
                       schema:
-                        type: list
-                        default: []
-                        items:
-                          - variable: labelItem
-                            label: "Label"
-                            schema:
-                              type: dict
-                              attrs:
-                                - variable: name
-                                  label: "Name"
-                                  schema:
-                                    type: string
-                                - variable: value
-                                  label: "Value"
-                                  schema:
-                                    type: string
-                    - variable: annotationsList
-                      label: "Annotations"
+                        type: hostpath
+                        required: true
+        - variable: media
+          label: "Storage Volume for Media"
+          schema:
+            type: dict
+            attrs:
+              - variable: datasetName
+                label: "Media Storage Volume Dataset Name"
+                schema:
+                  type: string
+                  hidden: true
+                  $ref:
+                    - "normalize/ixVolume"
+                  show_if: [["hostPathEnabled", "=", false]]
+                  default: "ix-media"
+                  editable: false
+              - variable: mountPath
+                label: "Media Storage Mount Path"
+                description: "Path where the volume will be mounted inside the pod"
+                schema:
+                  type: path
+                  hidden: true
+                  editable: true
+                  default: "/media"
+              - variable: hostPathEnabled
+                label: "Enable Custom Host Path for Home Assistant Media Storage Volume"
+                schema:
+                  type: boolean
+                  default: false
+                  show_subquestions_if: true
+                  subquestions:
+                    - variable: hostPath
+                      label: "Host Path for Home Assistant Media Storage Volume"
                       schema:
-                        type: list
-                        default: []
-                        items:
-                          - variable: annotationItem
-                            label: "Label"
-                            schema:
-                              type: dict
-                              attrs:
-                                - variable: name
-                                  label: "Name"
-                                  schema:
-                                    type: string
-                                - variable: value
-                                  label: "Value"
-                                  schema:
-                                    type: string
+                        type: hostpath
+                        required: true
+
+
+  - variable: postgresAppVolumeMounts
+    label: "Postgres Storage"
+    group: "Storage"
+    schema:
+      type: dict
+      hidden: true
+      attrs:
+        - variable: postgres-data
+          label: "Postgres Data Volume"
+          schema:
+            type: dict
+            attrs:
+              - variable: datasetName
+                label: "Postgres Data Volume Name"
+                schema:
+                  type: string
+                  $ref:
+                    - "normalize/ixVolume"
+                  default: "ix-postgres_data"
+                  editable: false
+              - variable: mountPath
+                label: "Postgresql Data Mount Path"
+                description: "Path where the volume will be mounted inside the pod"
+                schema:
+                  type: path
+                  editable: false
+                  default: "/var/lib/postgresql/data"
+        - variable: postgres-backup
+          label: "Postgres Backup Volume"
+          schema:
+            type: dict
+            attrs:
+              - variable: datasetName
+                label: "Postgres Backup Volume Name"
+                schema:
+                  type: string
+                  $ref:
+                    - "normalize/ixVolume"
+                  default: "ix-postgres_backups"
+                  editable: false
+              - variable: mountPath
+                label: "Postgresql Backup Mount Path"
+                description: "Path where the volume will be mounted inside the pod"
+                schema:
+                  type: path
+                  editable: false
+                  default: "/postgres_backups"
+
+  - variable: extraAppVolumeMounts
+    label: "Extra Host Path Volumes"
+    group: "Storage"
+    schema:
+      type: list
+      items:
+        - variable: extraAppVolume
+          label: "Host Path Volume"
+          description: "Add an extra host path volume for Home Assistant application"
+          schema:
+            type: dict
+            attrs:
+              - variable: mountPath
+                label: "Mount Path in Pod"
+                description: "Path where the volume will be mounted inside the pod"
+                schema:
+                  type: path
+                  required: true
+              - variable: hostPath
+                label: "Host Path"
+                description: "Host path"
+                schema:
+                  type: hostpath
+                  required: true
