@@ -5,6 +5,7 @@ image:
 
 securityContext:
   privileged: true
+  allowPrivilegeEscalation: true
   readOnlyRootFilesystem: false
   runAsNonRoot: false
 
