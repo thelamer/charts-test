@@ -11,9 +11,10 @@ You will, however, be able to use all values referenced in the common chart here
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| env.PUID | int | `568` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"tccr.io/truecharts/firefox"` |  |
-| image.tag | string | `"v78.15.0"` |  |
+| image.repository | string | `"ghcr.io/edmundtse/docker-spideroakone"` |  |
+| image.tag | string | `"vv0.1.0-alpha@sha256:9268202474e4f91b1a87ef63c15bad07c1c2abfce90fedb4446bac9a17c747f8"` |  |
 | persistence.config.enabled | bool | `true` |  |
 | persistence.config.mountPath | string | `"/config"` |  |
 | persistence.varrun.enabled | bool | `true` |  |
@@ -21,7 +22,7 @@ You will, however, be able to use all values referenced in the common chart here
 | podSecurityContext.runAsUser | int | `0` |  |
 | securityContext.readOnlyRootFilesystem | bool | `false` |  |
 | securityContext.runAsNonRoot | bool | `false` |  |
-| service.main.ports.main.port | int | `10131` |  |
+| service.main.ports.main.port | int | `3000` |  |
 | service.main.ports.main.targetPort | int | `3000` |  |
 
 All Rights Reserved - The TrueCharts Project

@@ -1,11 +1,14 @@
 image:
-  repository: tccr.io/truecharts/firefox
+  repository: ghcr.io/edmundtse/docker-spideroakone
   pullPolicy: IfNotPresent
-  tag: v78.15.0
+  tag: v0.1.0-alpha@sha256:9268202474e4f91b1a87ef63c15bad07c1c2abfce90fedb4446bac9a17c747f8
+
+env:
+  PUID: 568
 
 securityContext:
-  runAsNonRoot: false
   readOnlyRootFilesystem: false
+  runAsNonRoot: false
 
 podSecurityContext:
   runAsUser: 0
@@ -15,12 +18,12 @@ service:
   main:
     ports:
       main:
+        port: 3000
         targetPort: 3000
-        port: 10131
 
 persistence:
   config:
     enabled: true
-    mountPath: "/config"
+    mountPath: /config
   varrun:
     enabled: true

@@ -1,0 +1,1 @@
+# A TrueNAS SCALE app catalog

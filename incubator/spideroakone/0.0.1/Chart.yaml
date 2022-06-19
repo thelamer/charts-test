@@ -1,0 +1,31 @@
+apiVersion: v2
+appVersion: "7.5.0"
+dependencies:
+- name: common
+  repository: https://truecharts.org
+  version: 8.5.4
+description: SpiderOak One Backup is an encrypted cloud backup service.
+home: https://github.com/EdmundTse/scale-catalog/tree/main/incubator/spideroakone
+icon: https://icons.iconarchive.com/icons/papirus-team/papirus-apps/128/SpiderOakONE-icon.png
+keywords:
+- backup
+- one
+- spideroak
+- spideroakone
+kubeVersion: '>=1.16.0-0'
+maintainers:
+- email: info@truecharts.org
+  name: TrueCharts
+  url: truecharts.org
+name: spideroakone
+sources:
+- https://github.com/EdmundTse/docker-spideroakone
+- https://spideroak.com/one/
+type: application
+version: 0.0.1
+annotations:
+  truecharts.org/catagories: |
+    - media
+
+  truecharts.org/SCALE-support: "true"
+  truecharts.org/grade: U
