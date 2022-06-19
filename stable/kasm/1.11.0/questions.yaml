@@ -1,10 +1,10 @@
 groups:
   - name: "Configuration"
-    description: "Home Assistant application configuration"
+    description: "Kasm Workspaces configuration"
   - name: "Storage"
-    description: "Configure storage for homeassistant"
+    description: "Configure storage for Kasm Workspaces"
   - name: "Networking"
-    description: "Networking Configuration for homeassistant"
+    description: "Networking Configuration for Kasm Workspaces"
   - name: "Advanced DNS Settings"
     description: "Configure DNS settings"
 
@@ -20,7 +20,7 @@ portals:
 
 questions:
   - variable: web_port
-    label: "Web Port for homeassistant"
+    label: "Web Port for Kasm Workspaces"
     group: Networking
     schema:
       type: int
@@ -32,18 +32,11 @@ questions:
   - variable: timezone
     label: "Configure timezone"
     group: "Configuration"
-    description: "Configure timezone for Home Assistant"
+    description: "Configure timezone for Kasm Workspaces"
     schema:
       type: string
       $ref:
         - "definitions/timezone"
-
-  - variable: hostNetwork
-    label: "Enable Host Network"
-    group: "Networking"
-    schema:
-      type: boolean
-      default: false
 
   - variable: dnsConfig
     label: "DNS Configuration"
@@ -93,7 +86,7 @@ questions:
       max: 65535
 
   - variable: environmentVariables
-    label: "Home Assistant environment"
+    label: "Kasm Workspaces environment"
     group: "Configuration"
     schema:
       type: list
@@ -114,7 +107,7 @@ questions:
                   type: string
 
   - variable: appVolumeMounts
-    label: "Home Assistant Storage"
+    label: "Kasm Workspaces Storage"
     group: "Storage"
     schema:
       type: dict
@@ -141,103 +134,19 @@ questions:
                   type: path
                   hidden: true
                   editable: true
-                  default: "/config"
+                  default: "/opt"
               - variable: hostPathEnabled
-                label: "Enable Custom Host Path for Home Assistant Configuration Storage Volume"
+                label: "Enable Custom Host Path for Kasm Workspaces Storage Volume"
                 schema:
                   type: boolean
                   default: false
                   show_subquestions_if: true
                   subquestions:
                     - variable: hostPath
-                      label: "Host Path for Home Assistant Configuration Storage Volume"
+                      label: "Host Path for the Kasm Workspaces Storage Volume"
                       schema:
                         type: hostpath
                         required: true
-        - variable: media
-          label: "Storage Volume for Media"
-          schema:
-            type: dict
-            attrs:
-              - variable: datasetName
-                label: "Media Storage Volume Dataset Name"
-                schema:
-                  type: string
-                  hidden: true
-                  $ref:
-                    - "normalize/ixVolume"
-                  show_if: [["hostPathEnabled", "=", false]]
-                  default: "ix-media"
-                  editable: false
-              - variable: mountPath
-                label: "Media Storage Mount Path"
-                description: "Path where the volume will be mounted inside the pod"
-                schema:
-                  type: path
-                  hidden: true
-                  editable: true
-                  default: "/media"
-              - variable: hostPathEnabled
-                label: "Enable Custom Host Path for Home Assistant Media Storage Volume"
-                schema:
-                  type: boolean
-                  default: false
-                  show_subquestions_if: true
-                  subquestions:
-                    - variable: hostPath
-                      label: "Host Path for Home Assistant Media Storage Volume"
-                      schema:
-                        type: hostpath
-                        required: true
-
-
-  - variable: postgresAppVolumeMounts
-    label: "Postgres Storage"
-    group: "Storage"
-    schema:
-      type: dict
-      hidden: true
-      attrs:
-        - variable: postgres-data
-          label: "Postgres Data Volume"
-          schema:
-            type: dict
-            attrs:
-              - variable: datasetName
-                label: "Postgres Data Volume Name"
-                schema:
-                  type: string
-                  $ref:
-                    - "normalize/ixVolume"
-                  default: "ix-postgres_data"
-                  editable: false
-              - variable: mountPath
-                label: "Postgresql Data Mount Path"
-                description: "Path where the volume will be mounted inside the pod"
-                schema:
-                  type: path
-                  editable: false
-                  default: "/var/lib/postgresql/data"
-        - variable: postgres-backup
-          label: "Postgres Backup Volume"
-          schema:
-            type: dict
-            attrs:
-              - variable: datasetName
-                label: "Postgres Backup Volume Name"
-                schema:
-                  type: string
-                  $ref:
-                    - "normalize/ixVolume"
-                  default: "ix-postgres_backups"
-                  editable: false
-              - variable: mountPath
-                label: "Postgresql Backup Mount Path"
-                description: "Path where the volume will be mounted inside the pod"
-                schema:
-                  type: path
-                  editable: false
-                  default: "/postgres_backups"
 
   - variable: extraAppVolumeMounts
     label: "Extra Host Path Volumes"
@@ -247,7 +156,7 @@ questions:
       items:
         - variable: extraAppVolume
           label: "Host Path Volume"
-          description: "Add an extra host path volume for Home Assistant application"
+          description: "Add an extra host path volume for Kasm Workspaces"
           schema:
             type: dict
             attrs:
