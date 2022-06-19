@@ -1,7 +1,7 @@
 image:
   repository: taisun/random-images
   pullPolicy: Always
-  tag: kasm@kasm@sha256:f6e504b023be5e77bac955b49f2c2d67ac50dcc2bbca04428074f742be175f25
+  tag: kasm
 
 securityContext:
   privileged: true
