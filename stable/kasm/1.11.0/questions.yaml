@@ -1317,11 +1317,6 @@ questions:
                 schema:
                   type: boolean
                   default: false
-              - variable: allowPrivilegeEscalation
-                label: "Allow Privilege Escalation"
-                schema:
-                  type: boolean
-                  default: false
               - variable: runAsNonRoot
                 label: "runAsNonRoot"
                 schema:
