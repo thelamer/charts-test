@@ -1,14 +1,13 @@
 # Introduction
 
-SpiderOak One Backup is an encrypted cloud backup service.
+Kasm Workspaces streaming containerized apps and desktops to end-users.
 
 TrueCharts are designed to be installed as TrueNAS SCALE app only. We can not guarantee this charts works as a stand-alone helm installation.
 **This chart is not maintained by the upstream project and any issues with the chart should be raised [here](https://github.com/truecharts/apps/issues/new/choose)**
 
 ## Source Code
 
-* <https://github.com/EdmundTse/docker-spideroakone>
-* <https://spideroak.com/one/>
+* <https://github.com/thelamer/charts-test/tree/main>
 
 ## Requirements
 

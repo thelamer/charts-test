@@ -1,0 +1,29 @@
+apiVersion: v2
+appVersion: "7.5.0"
+dependencies:
+- name: common
+  repository: https://truecharts.org
+  version: 8.5.4
+description: Kasm Workspaces web based streaming Linux desktops and apps
+home: https://github.com/thelamer/charts-test/tree/main/stable/kasm
+icon: https://kasm-ci.s3.amazonaws.com/kasm_logo.png
+keywords:
+- kasm
+- web
+- desktop
+- browser
+kubeVersion: '>=1.16.0-0'
+maintainers:
+- email: info@truecharts.org
+  name: TrueCharts
+  url: truecharts.org
+name: kasm
+sources:
+- https://github.com/thelamer/charts-test/tree/main
+type: application
+version: 1.11.0
+annotations:
+  truecharts.org/catagories: |
+    - applications
+  truecharts.org/SCALE-support: "true"
+  truecharts.org/grade: U

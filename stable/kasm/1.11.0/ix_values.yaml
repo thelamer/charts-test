@@ -1,0 +1,30 @@
+image:
+  repository: taisun/random-images
+  pullPolicy: Always
+  tag: kasm@kasm@sha256:f6e504b023be5e77bac955b49f2c2d67ac50dcc2bbca04428074f742be175f25
+
+securityContext:
+  privileged: true
+  readOnlyRootFilesystem: false
+  runAsNonRoot: false
+
+podSecurityContext:
+  runAsUser: 0
+  runAsGroup: 0
+
+service:
+  main:
+    ports:
+      admin:
+        port: 10630
+        targetPort: 3000
+      main:
+        port: 10631
+        targetPort: 443
+
+persistence:
+  config:
+    enabled: true
+    mountPath: /opt
+  varrun:
+    enabled: true

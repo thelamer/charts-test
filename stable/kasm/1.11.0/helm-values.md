@@ -11,18 +11,19 @@ You will, however, be able to use all values referenced in the common chart here
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| env.PUID | int | `568` |  |
-| image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"ghcr.io/edmundtse/docker-spideroakone"` |  |
-| image.tag | string | `"vv0.1.0-alpha@sha256:9268202474e4f91b1a87ef63c15bad07c1c2abfce90fedb4446bac9a17c747f8"` |  |
+| image.pullPolicy | string | `"Always"` |  |
+| image.repository | string | `"taisun/random-images"` |  |
+| image.tag | string | `"kasm@sha256:f6e504b023be5e77bac955b49f2c2d67ac50dcc2bbca04428074f742be175f25"` |  |
 | persistence.config.enabled | bool | `true` |  |
-| persistence.config.mountPath | string | `"/config"` |  |
+| persistence.config.mountPath | string | `"/opt"` |  |
 | persistence.varrun.enabled | bool | `true` |  |
 | podSecurityContext.runAsGroup | int | `0` |  |
 | podSecurityContext.runAsUser | int | `0` |  |
 | securityContext.readOnlyRootFilesystem | bool | `false` |  |
 | securityContext.runAsNonRoot | bool | `false` |  |
-| service.main.ports.main.port | int | `3000` |  |
-| service.main.ports.main.targetPort | int | `3000` |  |
+| service.main.ports.admin.port | int | `10630` |  |
+| service.main.ports.admin.targetPort | int | `3000` |  |
+| service.main.ports.main.port | int | `10631` |  |
+| service.main.ports.main.targetPort | int | `443` |  |
 
 All Rights Reserved - The TrueCharts Project
