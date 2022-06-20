@@ -14,7 +14,7 @@ portals:
     path: "/"
   web:
     protocols:
-      - "http"
+      - "https"
     host:
       - "$node_ip"
     ports:
