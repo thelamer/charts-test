@@ -14,11 +14,9 @@ podSecurityContext:
   runAsGroup: 0
 
 service:
-  admin:
-    enabled: true
+  main:
     ports:
-      admin:
-        enabled: true
+      main:
         port: 10630
         targetPort: 3000
 

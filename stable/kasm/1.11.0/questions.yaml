@@ -16,21 +16,6 @@ portals:
     ports:
       - "$kubernetes-resource_configmap_portal_port"
 questions:
-  - variable: admin
-    label: Web Port for Kasm Workspaces
-    schema:
-      additional_attrs: true
-      type: dict
-      attrs:
-        - variable: port
-          label: Port
-          description: This port exposes the container port on the service
-          schema:
-            type: int
-            min: 8000
-            max: 65535
-            default: 10630
-            required: true
   - variable: appVolumeMounts
     label: Kasm Workspaces Storage
     group: Storage
