@@ -6,15 +6,29 @@ groups:
   - name: Portal
     description: Portal placeholder
 portals:
-  setup:
+  open:
     protocols:
-      - "http"
+      - "$kubernetes-resource_configmap_portal_protocol"
     host:
-      - "$node_ip"
+      - "$kubernetes-resource_configmap_portal_host"
     ports:
-      - "10630"
-    path: "/"
+      - "$kubernetes-resource_configmap_portal_port"
 questions:
+  - variable: portal
+    group: "Portal"
+    label: "Configure Portal Button"
+    schema:
+      type: dict
+      hidden: true
+      attrs:
+        - variable: enabled
+          label: "Enable"
+          description: "enable the portal button"
+          schema:
+            hidden: true
+            editable: false
+            type: boolean
+            default: true
   - variable: service
     group: "Networking"
     label: "Configure Service(s)"
