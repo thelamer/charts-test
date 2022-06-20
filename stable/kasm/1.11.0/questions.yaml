@@ -68,15 +68,8 @@ questions:
                   hidden: true
                   editable: true
                   default: "/opt"
-              - variable: hostPathEnabled
-                label: "Enable Custom Host Path for Kasm Workspaces Storage Volume"
+              - variable: hostPath
+                label: "Host Path for Kasm Workspaces Storage Volume"
                 schema:
-                  type: boolean
-                  default: false
-                  show_subquestions_if: true
-                  subquestions:
-                    - variable: hostPath
-                      label: "Host Path for Kasm Workspaces Storage Volume"
-                      schema:
-                        type: hostpath
-                        required: true
+                  type: hostpath
+                  required: true
