@@ -3,6 +3,8 @@ groups:
     description: Configure storage for Kasm Workspaces
   - name: Networking
     description: Networking Configuration for Kasm Workspaces
+  - name: Portal
+    description: Portal placeholder
 portals:
   setup:
     protocols:
@@ -13,7 +15,7 @@ portals:
       - "$kubernetes-resource_configmap_portal_port"
 questions:
   - variable: portal
-    group: "Container Image"
+    group: "Portal"
     label: "Configure Portal Button"
     schema:
       type: dict
