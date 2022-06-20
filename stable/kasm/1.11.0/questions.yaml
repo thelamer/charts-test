@@ -182,7 +182,7 @@ questions:
                 schema:
                   type: dict
                   attrs:
-                    - variable: main
+                    - variable: web
                       label: "Web UI port configuration"
                       schema:
                         type: dict
