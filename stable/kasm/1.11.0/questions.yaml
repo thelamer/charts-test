@@ -1,61 +1,57 @@
 groups:
-  - name: "Configuration"
-    description: "Kasm Workspaces configuration"
-  - name: "Storage"
-    description: "Configure storage for Kasm Workspaces"
-  - name: "Networking"
-    description: "Networking Configuration for Kasm Workspaces"
-  - name: "Advanced DNS Settings"
-    description: "Configure DNS settings"
-
+  - name: Configuration
+    description: Kasm Workspaces configuration
+  - name: Storage
+    description: Configure storage for Kasm Workspaces
+  - name: Networking
+    description: Networking Configuration for Kasm Workspaces
+  - name: Advanced DNS Settings
+    description: Configure DNS settings
 portals:
-  setup:
+  admin:
     protocols:
-      - "http"
+      - "$kubernetes-resource_configmap_portal_protocol"
     host:
-      - "$node_ip"
+      - "$kubernetes-resource_configmap_portal_host"
     ports:
-      - "$variable-admin"
-    path: "/"
-
+      - "$kubernetes-resource_configmap_portal_port"
 questions:
   - variable: admin
-    label: "Web Port for Kasm Workspaces"
+    label: Web Port for Kasm Workspaces
     schema:
       additional_attrs: true
       type: dict
       attrs:
         - variable: port
-          label: "Port"
-          description: "This port exposes the container port on the service"
+          label: Port
+          description: This port exposes the container port on the service
           schema:
             type: int
             min: 8000
             max: 65535
             default: 10630
             required: true
-
   - variable: appVolumeMounts
-    label: "Kasm Workspaces Storage"
-    group: "Storage"
+    label: Kasm Workspaces Storage
+    group: Storage
     schema:
       type: dict
       attrs:
         - variable: data
-          label: "Storage Volume"
+          label: Storage Volume
           schema:
             type: dict
             attrs:
               - variable: hostPath
-                label: "Host Path for the Kasm Workspaces Storage Volume"
+                label: Host Path for the Kasm Workspaces Storage Volume
                 schema:
                   type: hostpath
                   required: true
               - variable: mountPath
-                label: "Configuration Storage Mount Path"
-                description: "Path where the volume will be mounted inside the pod"
+                label: Configuration Storage Mount Path
+                description: Path where the volume will be mounted inside the pod
                 schema:
                   type: path
                   hidden: true
                   editable: true
-                  default: "/opt"
+                  default: /opt
