@@ -14,13 +14,13 @@ portals:
 questions:
   - variable: service
     group: "Networking"
-    label: "Port Forwarding"
+    label: "Configure Service(s)"
     schema:
       type: dict
       attrs:
         - variable: main
-          label: "Kasm Workspaces Installation Wizard"
-          description: "For setup and management of Kasm Workspaces"
+          label: "Kasm Workspaces Install Wizard"
+          description: "The management port for installation of Kasm Workspaces"
           schema:
             type: dict
             attrs:
@@ -65,10 +65,12 @@ questions:
                       schema:
                         type: string
               - variable: ports
+                label: "Service's Port(s) Configuration"
                 schema:
                   type: dict
                   attrs:
                     - variable: main
+                      label: "Main Service Port Configuration"
                       schema:
                         type: dict
                         attrs:
@@ -87,17 +89,11 @@ questions:
                               enum:
                                 - value: HTTP
                                   description: "HTTP"
-                                - value: "HTTPS"
-                                  description: "HTTPS"
-                                - value: TCP
-                                  description: "TCP"
-                                - value: "UDP"
-                                  description: "UDP"
                           - variable: port
                             label: "Container Port"
                             schema:
                               type: int
-                              default: 5076
+                              default: 10630
                               editable: false
                               hidden: true
                           - variable: targetport
@@ -105,7 +101,7 @@ questions:
                             description: "This port exposes the container port on the service"
                             schema:
                               type: int
-                              default: 5076
+                              default: 3000
                               editable: true
                               hidden: false
                               required: true
@@ -116,5 +112,5 @@ questions:
                               type: int
                               min: 9000
                               max: 65535
-                              default: 36041
+                              default: 10630
                               required: true
