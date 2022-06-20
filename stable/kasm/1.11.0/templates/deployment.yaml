@@ -41,7 +41,9 @@ spec:
             - name: data
               mountPath: {{ .Values.appVolumeMounts.data.mountPath }}
           ports:
-            - name: admin
-              containerPort: 3000
-            - name: web
-              containerPort: 443
+            - nodePort: {{ .Values.admin_port }}
+              targetPort: 3000
+              port: 3000
+            - nodePort: {{ .Values.web_port }}
+              targetPort: 443
+              port: 443
