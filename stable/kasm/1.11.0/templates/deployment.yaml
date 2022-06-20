@@ -36,6 +36,11 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           {{ include "common.containers.imageConfig" .Values.image | nindent 10 }}
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
           volumeMounts:
             - name: data
               mountPath: {{ .Values.appVolumeMounts.data.mountPath }}
