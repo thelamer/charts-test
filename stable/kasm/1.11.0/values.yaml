@@ -13,16 +13,6 @@ podSecurityContext:
   runAsUser: 0
   runAsGroup: 0
 
-service:
-  main:
-    ports:
-      main:
-        port: 10630
-        targetPort: 3000
-
 persistence:
-  data:
-    enabled: true
-    mountPath: /opt
   varrun:
     enabled: true

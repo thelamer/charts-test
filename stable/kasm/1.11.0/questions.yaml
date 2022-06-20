@@ -1,12 +1,8 @@
 groups:
-  - name: Configuration
-    description: Kasm Workspaces configuration
   - name: Storage
     description: Configure storage for Kasm Workspaces
   - name: Networking
     description: Networking Configuration for Kasm Workspaces
-  - name: Advanced DNS Settings
-    description: Configure DNS settings
 portals:
   admin:
     protocols:
@@ -18,13 +14,13 @@ portals:
 questions:
   - variable: service
     group: "Networking"
-    label: "Configure Service(s)"
+    label: "Port Forwarding"
     schema:
       type: dict
       attrs:
         - variable: main
-          label: "Main Service"
-          description: "The Primary service on which the healthcheck runs, often the webUI"
+          label: "Kasm Workspaces Installation Wizard"
+          description: "For setup and management of Kasm Workspaces"
           schema:
             type: dict
             attrs:
@@ -69,12 +65,10 @@ questions:
                       schema:
                         type: string
               - variable: ports
-                label: "Service's Port(s) Configuration"
                 schema:
                   type: dict
                   attrs:
                     - variable: main
-                      label: "Main Service Port Configuration"
                       schema:
                         type: dict
                         attrs:
@@ -103,7 +97,7 @@ questions:
                             label: "Container Port"
                             schema:
                               type: int
-                              default: 10630
+                              default: 5076
                               editable: false
                               hidden: true
                           - variable: targetport
@@ -111,7 +105,7 @@ questions:
                             description: "This port exposes the container port on the service"
                             schema:
                               type: int
-                              default: 3000
+                              default: 5076
                               editable: true
                               hidden: false
                               required: true
@@ -122,29 +116,5 @@ questions:
                               type: int
                               min: 9000
                               max: 65535
-                              default: 10630
+                              default: 36041
                               required: true
-  - variable: persistence
-    label: Kasm Workspaces Storage
-    group: Storage
-    schema:
-      type: dict
-      attrs:
-        - variable: data
-          label: Storage Volume
-          schema:
-            type: dict
-            attrs:
-              - variable: hostPath
-                label: Host Path for the Kasm Workspaces Storage Volume
-                schema:
-                  type: hostpath
-                  required: true
-              - variable: mountPath
-                label: Configuration Storage Mount Path
-                description: Path where the volume will be mounted inside the pod
-                schema:
-                  type: path
-                  hidden: true
-                  editable: true
-                  default: /opt
