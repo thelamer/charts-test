@@ -34,7 +34,7 @@ spec:
           {{ include "common.containers.imageConfig" .Values.image | nindent 10 }}
           volumeMounts:
           {{ range $index, $hostPathConfiguration := .Values.appVolumeMounts }}
-            - name: extrappvolume-{{ $index }}
+            - name: {{ $index }}
               mountPath: {{ $hostPathConfiguration.mountPath }}
           {{ end }}
           ports:
