@@ -12,7 +12,7 @@ portals:
     host:
       - "$node_ip"
     ports:
-      - 10630
+      - "10630"
     path: "/"
 questions:
   - variable: service
