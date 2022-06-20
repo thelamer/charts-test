@@ -10,7 +10,7 @@ metadata:
     heritage: {{ .Release.Service }}
   annotations:
     rollme: {{ randAlphaNum 5 | quote }}
-  replicas: {{ (default 1 .Values.replicas) }}
+  replicas: 1
   strategy:
     type: "Recreate"
   selector:
