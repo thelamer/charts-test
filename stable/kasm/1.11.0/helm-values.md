@@ -13,7 +13,7 @@ You will, however, be able to use all values referenced in the common chart here
 |-----|------|---------|-------------|
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"taisun/random-images"` |  |
-| image.tag | string | `"kasm@sha256:f6e504b023be5e77bac955b49f2c2d67ac50dcc2bbca04428074f742be175f25"` |  |
+| image.tag | string | `"kasm"` |  |
 | persistence.config.enabled | bool | `true` |  |
 | persistence.config.mountPath | string | `"/opt"` |  |
 | persistence.varrun.enabled | bool | `true` |  |

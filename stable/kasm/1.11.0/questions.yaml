@@ -9,102 +9,25 @@ groups:
     description: "Configure DNS settings"
 
 portals:
-  web_portal:
+  setup:
     protocols:
       - "http"
     host:
       - "$node_ip"
     ports:
-      - "$variable-web_port"
+      - "$variable-admin"
     path: "/"
 
 questions:
-  - variable: web_port
+  - variable: admin
     label: "Web Port for Kasm Workspaces"
     group: Networking
     schema:
       type: int
       min: 8000
       max: 65535
-      default: 20810
+      default: 10630
       required: true
-
-  - variable: timezone
-    label: "Configure timezone"
-    group: "Configuration"
-    description: "Configure timezone for Kasm Workspaces"
-    schema:
-      type: string
-      $ref:
-        - "definitions/timezone"
-
-  - variable: dnsConfig
-    label: "DNS Configuration"
-    group: "Advanced DNS Settings"
-    schema:
-      type: dict
-      attrs:
-        - variable: options
-          label: "DNS Options"
-          schema:
-            type: list
-            items:
-              - variable: optionsEntry
-                label: "Option Entry Configuration"
-                schema:
-                  type: dict
-                  attrs:
-                    - variable: name
-                      label: "Option Name"
-                      schema:
-                        type: string
-                        required: true
-                    - variable: value
-                      label: "Option Value"
-                      schema:
-                        type: string
-                        required: true
-
-  - variable: ownerUID
-    label: "Storage User ID"
-    description: "User ID of the storage volume being used (application will chown the storage volume path with specified UID)"
-    group: Configuration
-    schema:
-      type: int
-      default: 568
-      min: 1
-      max: 65535
-
-  - variable: ownerGID
-    label: "Storage Group ID"
-    description: "Group ID of the storage volume being used (application will chown the storage volume path with specified GID)"
-    group: Configuration
-    schema:
-      type: int
-      default: 568
-      min: 1
-      max: 65535
-
-  - variable: environmentVariables
-    label: "Kasm Workspaces environment"
-    group: "Configuration"
-    schema:
-      type: list
-      default: []
-      items:
-        - variable: environmentVariable
-          label: "Environment Variable"
-          schema:
-            type: dict
-            attrs:
-              - variable: name
-                label: "Name"
-                schema:
-                  type: string
-              - variable: value
-                label: "Value"
-                schema:
-                  type: string
 
   - variable: appVolumeMounts
     label: "Kasm Workspaces Storage"
@@ -112,21 +35,16 @@ questions:
     schema:
       type: dict
       attrs:
-        - variable: config
-          label: "Storage Volume for Configuration"
+        - variable: data
+          label: "Storage Volume"
           schema:
             type: dict
             attrs:
-              - variable: datasetName
-                label: "Configuration Storage Volume Dataset Name"
+              - variable: hostPath
+                label: "Host Path for the Kasm Workspaces Storage Volume"
                 schema:
-                  type: string
-                  hidden: true
-                  $ref:
-                    - "normalize/ixVolume"
-                  show_if: [["hostPathEnabled", "=", false]]
-                  default: "ix-config"
-                  editable: false
+                  type: hostpath
+                  required: true
               - variable: mountPath
                 label: "Configuration Storage Mount Path"
                 description: "Path where the volume will be mounted inside the pod"
@@ -135,40 +53,3 @@ questions:
                   hidden: true
                   editable: true
                   default: "/opt"
-              - variable: hostPathEnabled
-                label: "Enable Custom Host Path for Kasm Workspaces Storage Volume"
-                schema:
-                  type: boolean
-                  default: false
-                  show_subquestions_if: true
-                  subquestions:
-                    - variable: hostPath
-                      label: "Host Path for the Kasm Workspaces Storage Volume"
-                      schema:
-                        type: hostpath
-                        required: true
-
-  - variable: extraAppVolumeMounts
-    label: "Extra Host Path Volumes"
-    group: "Storage"
-    schema:
-      type: list
-      items:
-        - variable: extraAppVolume
-          label: "Host Path Volume"
-          description: "Add an extra host path volume for Kasm Workspaces"
-          schema:
-            type: dict
-            attrs:
-              - variable: mountPath
-                label: "Mount Path in Pod"
-                description: "Path where the volume will be mounted inside the pod"
-                schema:
-                  type: path
-                  required: true
-              - variable: hostPath
-                label: "Host Path"
-                description: "Host path"
-                schema:
-                  type: hostpath
-                  required: true
