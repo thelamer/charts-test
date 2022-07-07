@@ -6,7 +6,7 @@ groups:
 portals:
   admin:
     protocols:
-      - "http"
+      - "https"
     host:
       - "$node_ip"
     ports:

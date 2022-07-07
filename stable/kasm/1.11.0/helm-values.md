@@ -12,8 +12,8 @@ You will, however, be able to use all values referenced in the common chart here
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | image.pullPolicy | string | `"Always"` |  |
-| image.repository | string | `"taisun/random-images"` |  |
-| image.tag | string | `"kasm"` |  |
+| image.repository | string | `"kasmweb/workspaces"` |  |
+| image.tag | string | `"1.11.0"` |  |
 | persistence.config.enabled | bool | `true` |  |
 | persistence.config.mountPath | string | `"/opt"` |  |
 | persistence.varrun.enabled | bool | `true` |  |
@@ -24,6 +24,6 @@ You will, however, be able to use all values referenced in the common chart here
 | service.main.ports.admin.port | int | `10630` |  |
 | service.main.ports.admin.targetPort | int | `3000` |  |
 | service.main.ports.main.port | int | `10631` |  |
-| service.main.ports.main.targetPort | int | `443` |  |
+| service.main.ports.main.targetPort | int | `10631` |  |
 
 All Rights Reserved - The TrueCharts Project
