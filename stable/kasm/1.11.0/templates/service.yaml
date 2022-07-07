@@ -14,5 +14,5 @@ spec:
       nodePort: {{ .Values.admin_port }}
     - name: web
       port: {{ .Values.web_port }}
-      targetPort: 443
+      targetPort: {{ .Values.web_port }}
       nodePort: {{ .Values.web_port }}

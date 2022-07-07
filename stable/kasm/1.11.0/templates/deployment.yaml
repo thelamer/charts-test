@@ -46,6 +46,9 @@ spec:
               mountPath: {{ .Values.appVolumeMounts.data.mountPath }}
           ports:
             - name: web
-              containerPort: 443
+              containerPort: {{ .Values.web_port }}
             - name: admin
               containerPort: 3000
+          env:
+            - name: KASM_PORT
+              value: {{ .Values.web_port }}
