@@ -51,4 +51,4 @@ spec:
               containerPort: 3000
           env:
             - name: KASM_PORT
-              value: {{ .Values.web_port | int }}
+              value: {{ .Values.web_port | string }}
