@@ -1,7 +1,7 @@
 image:
-  repository: kasmweb/workspaces
+  repository: taisun/random-images
   pullPolicy: Always
-  tag: 1.11.0
+  tag: kasm
 
 securityContext:
   privileged: true

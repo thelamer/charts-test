@@ -9,10 +9,10 @@ spec:
     app: {{ template "common.names.name" . }}
   ports:
     - name: admin
-      port: {{ .Values.admin_port | int }}
+      port: {{ .Values.admin_port }}
       targetPort: 3000
-      nodePort: {{ .Values.admin_port | int }}
+      nodePort: {{ .Values.admin_port }}
     - name: web
-      port: {{ .Values.web_port | int }}
-      targetPort: {{ .Values.web_port | int }}
-      nodePort: {{ .Values.web_port | int }}
+      port: {{ .Values.web_port }}
+      targetPort: 443
+      nodePort: {{ .Values.web_port }}

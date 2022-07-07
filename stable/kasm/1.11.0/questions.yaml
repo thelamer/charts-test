@@ -25,15 +25,19 @@ questions:
     label: "Install Wizard Port for Kasm Workspaces"
     group: Networking
     schema:
-      type: string
-      default: "20610"
+      type: int
+      min: 8000
+      max: 65535
+      default: 20610
       required: true
   - variable: web_port
     label: "Port for Kasm Workspaces"
     group: Networking
     schema:
-      type: string
-      default: "20611"
+      type: int
+      min: 8000
+      max: 65535
+      default: 20611
       required: true
   - variable: appVolumeMounts
     label: "Kasm Workspaces Storage"
